@@ -1,22 +1,25 @@
 # cython: language_level = 3
 # distutils: language = c++
-import numpy as np
-# from igraph import Graph
-from collections import deque, Counter
 from libcpp.map cimport map as cpp_map
 from libcpp.vector cimport vector as cpp_vec
 from libcpp.deque cimport deque as cpp_deq
 from libcpp cimport bool as bool_t
-from syri.scripts.func import unlist
-import pandas as pd
+
 from gc import collect
 import logging
+import sys
+from collections import deque#, Counter # unused according to cython-lint
+
+from syri.scripts.func import unlist
 from syri.synsearchFunctions import apply_TS, alignmentBlock
 from syri.pyxFiles.function cimport getConnectivityGraph
-import sys
-from cython.operator cimport dereference as deref, preincrement as inc
+# unused according to cython-lint
+#from cython.operator cimport dereference as deref, preincrement as inc
 
 
+# from igraph import Graph
+import pandas as pd
+import numpy as np
 cimport numpy as np
 
 np.random.seed(1)
@@ -83,15 +86,16 @@ cdef getProfitable(invblocks, long[:] aStart, long[:] aEnd, long[:] bStart, long
         cpp_deq[long]                   st, end, stb, endb
         cpp_deq[float]                  profit
         cpp_deq[long]                   stsyn, endsyn
-        float[:]                        parentscore
-        cpp_map[long, cpp_map[long, cpp_deq[long]]]                         canmap
-        cpp_map[long, cpp_map[long, cpp_deq[long]]]                         staenda
-        cpp_map[long, cpp_map[long, cpp_deq[long]]].reverse_iterator        canmap_rit
-        cpp_map[long, cpp_deq[long]].reverse_iterator                       canmap_rit2
-        cpp_map[long, cpp_map[long, long]].iterator                         staenda_it
-        cpp_map[long, cpp_deq[long]].reverse_iterator                       staenda_it2
-        cpp_map[long, cpp_map[long, float]]                                 minparentscore
-        long[:]                                                             sorted_sa
+        # unused variables, according to cython-lint
+        #float[:]                        parentscore
+        #cpp_map[long, cpp_map[long, cpp_deq[long]]]                         canmap
+        #cpp_map[long, cpp_map[long, cpp_deq[long]]]                         staenda
+        #cpp_map[long, cpp_map[long, cpp_deq[long]]].reverse_iterator        canmap_rit
+        #cpp_map[long, cpp_deq[long]].reverse_iterator                       canmap_rit2
+        #cpp_map[long, cpp_map[long, long]].iterator                         staenda_it
+        #cpp_map[long, cpp_deq[long]].reverse_iterator                       staenda_it2
+        #cpp_map[long, cpp_map[long, float]]                                 minparentscore
+        #long[:]                                                             sorted_sa
     
     
     #print('starting')
