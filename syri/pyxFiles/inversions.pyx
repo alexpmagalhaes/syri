@@ -614,7 +614,7 @@ def getInversions(coords,chromo, threshold, synData, tUC, tUP, invgl):
         invCoord = [invertedCoordsOri.iat[invPos[0],0],invertedCoordsOri.iat[invPos[-1],1],invertedCoordsOri.iat[invPos[-1],3],invertedCoordsOri.iat[invPos[0],2]]
         for _j in range(invNeighbour[0]+1, invNeighbour[1]):
             sd = synData.iloc[_j][["aStart","aEnd","bStart","bEnd"]]
-            if (invCoord[0] - sd[0] < threshold) and (sd[1] - invCoord[1] < threshold) and (invCoord[2] - sd[2] < threshold) and (sd[3] - invCoord[2] < threshold):
+            if (invCoord[0] - sd.iloc[0] < threshold) and (sd.iloc[1] - invCoord[1] < threshold) and (invCoord[2] - sd.iloc[2] < threshold) and (sd.iloc[3] - invCoord[2] < threshold):
                 synInInv.append(_j)
             else:
                 badSyn.append(_j)
