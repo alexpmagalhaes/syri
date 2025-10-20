@@ -1696,6 +1696,7 @@ cdef greedySubsetSelector(cluster, transBlocksData, seedblocks, iterCount = 100)
     cdef:
         Py_ssize_t                                      i, j, k, l
         cpp_bool                                        fnd, outchanged, changed
+        int                                             ind # recycle this variable for typed indexing operations
         long                                   n = len(transBlocksData)
         long                                   ncls = len(cluster)
         long                                            length=0, ntmp=0            # number of temp cluster still need to be classified
@@ -1717,10 +1718,10 @@ cdef greedySubsetSelector(cluster, transBlocksData, seedblocks, iterCount = 100)
     outblocks = np.zeros(n, dtype=np.uint16)
     skiplist = np.zeros(n, dtype=np.uint16)
     for i in range(ncls):
-        cdef int ind = cluster[i]
+        ind = cluster[i]
         tempcluster[ind] = 1
     for i in range(len(seedblocks)):
-        cdef int ind = seedblocks[i]
+        ind = seedblocks[i]
         outblocks[ind] = 1
         tempcluster[ind] = 0
     transBlocksScore = {}
@@ -1736,11 +1737,11 @@ cdef greedySubsetSelector(cluster, transBlocksData, seedblocks, iterCount = 100)
         outblocks = np.zeros(n, dtype=np.uint16)
         skiplist = np.zeros(n, dtype=np.uint16)
         for i in range(ncls):
-            cdef int ind = cluster[i]
+            ind = cluster[i]
             tempcluster[ind] = 1
             ntmp += 1
         for i in range(len(seedblocks)):
-            cdef int ind = seedblocks[i]
+            ind = seedblocks[i]
             outblocks[ind] = 1
             tempcluster[ind] = 0
             ntmp -= 1
