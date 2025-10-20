@@ -1717,10 +1717,12 @@ cdef greedySubsetSelector(cluster, transBlocksData, seedblocks, iterCount = 100)
     outblocks = np.zeros(n, dtype=np.uint16)
     skiplist = np.zeros(n, dtype=np.uint16)
     for i in range(ncls):
-        tempcluster[cluster[i]] = 1
+        cdef int ind = cluster[i]
+        tempcluster[ind] = 1
     for i in range(len(seedblocks)):
-        outblocks[seedblocks[i]] = 1
-        tempcluster[seedblocks[i]] = 0
+        cdef int ind = seedblocks[i]
+        outblocks[ind] = 1
+        tempcluster[ind] = 0
     transBlocksScore = {}
     for i in np.nonzero(tempcluster)[0].astype(int):
         transBlocksScore[i] = (transBlocksData[i].aEnd - transBlocksData[i].aStart) + (transBlocksData[i].bEnd - transBlocksData[i].bStart)
@@ -1734,12 +1736,14 @@ cdef greedySubsetSelector(cluster, transBlocksData, seedblocks, iterCount = 100)
         outblocks = np.zeros(n, dtype=np.uint16)
         skiplist = np.zeros(n, dtype=np.uint16)
         for i in range(ncls):
-            tempcluster[cluster[i]] = 1
-            ntmp+=1
+            cdef int ind = cluster[i]
+            tempcluster[ind] = 1
+            ntmp += 1
         for i in range(len(seedblocks)):
-            outblocks[seedblocks[i]] = 1
-            tempcluster[seedblocks[i]] = 0
-            ntmp-=1
+            cdef int ind = seedblocks[i]
+            outblocks[ind] = 1
+            tempcluster[ind] = 0
+            ntmp -= 1
         length = 0
 
         while ntmp > 0:
